@@ -6,16 +6,17 @@
 
 
 ################################################################################
-ARG	tag="1.19.0-alpine"
-ARG	digest="sha256:3b3f647d2d99cac772ed64c4791e5d9b750dd5fe0b25db653ec4976f7b72837c"
+FROM	"alpine:3.12.0"	AS bind
 ################################################################################
-FROM	"alpine:${tag}@${digest}"	AS bind
+RUN									\
+	apk add	--no-cache --upgrade bind
+
 ################################################################################
-
-RUN	apk add	--no-cache --upgrade bind
-
-RUN	ln -svT	/run/configs/etc/bind/named.conf	/etc/bind/named.conf &&\
-	ln -svT	/run/secrets/var/bind/master		/var/bind/master
+RUN									\
+	ln -svT	/run/configs/etc/bind/named.conf			\
+		/etc/bind/named.conf					&& \
+	ln -svT	/run/secrets/var/bind/master				\
+		/var/bind/master
 
 ################################################################################
 ENTRYPOINT	["named"]
