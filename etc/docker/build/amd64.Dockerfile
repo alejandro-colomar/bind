@@ -14,7 +14,8 @@ FROM	"alpine:${tag}@${digest}"	AS bind
 
 RUN	apk add	--no-cache --upgrade bind
 
-RUN	ln -svT	/run/secrets/var/bind/master	/var/bind/master
+RUN	ln -svT	/run/configs/etc/bind/named.conf	/etc/bind/named.conf &&\
+	ln -svT	/run/secrets/var/bind/master		/var/bind/master
 
 ################################################################################
 ENTRYPOINT	["named"]
