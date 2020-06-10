@@ -14,7 +14,8 @@ FROM	"alpine:${tag}@${digest}"	AS bind
 
 RUN	apk add	--no-cache --upgrade bind
 
-RUN	ln -fsvT	/run/secrets/var/bind	/var/bind
+RUN	rm -rf	/var/bind						&& \
+	ln -svT	/run/secrets/var/bind	/var/bind
 
 ################################################################################
 ENTRYPOINT	["named"]
