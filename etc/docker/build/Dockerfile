@@ -13,8 +13,10 @@ RUN									\
 
 ################################################################################
 RUN									\
+	rm -f	/etc/bind/named.conf					&& \
 	ln -svT	/run/configs/etc/bind/named.conf			\
 		/etc/bind/named.conf					&& \
+	rm -rf	/var/bind/master					&& \
 	ln -svT	/run/secrets/var/bind/master				\
 		/var/bind/master
 
